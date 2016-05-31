@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project(camshift)
+find_package( OpenCV REQUIRED )
+add_executable(camshift DisplayImage.cpp MyCamShift.cpp mycv.h)
+target_link_libraries(camshift ${OpenCV_LIBS} )
