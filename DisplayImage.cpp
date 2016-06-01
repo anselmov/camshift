@@ -17,7 +17,7 @@ int trackObject = 0;
 bool showHist = true;
 Point origin;
 Rect selection;
-int vmin = 10, vmax = 256, smin = 30;
+int vmin = 10, vmax = 56, smin = 30;
 
 static void onMouse(int event, int x, int y, int, void *) {
     if (selectObject) {
@@ -148,11 +148,12 @@ int main(int argc, const char **argv) {
                     trackWindow = Rect(trackWindow.x - r, trackWindow.y - r,
                                        trackWindow.x + r, trackWindow.y + r) &
                                   Rect(0, 0, cols, rows);
+
                 }
 
                 if (backprojMode)
                     cvtColor(backproj, image, COLOR_BayerRG2BGR_VNG);
-                ellipse(image, trackBox, Scalar(0, 0, 255), 3, CV_AA);
+                ellipse(image, trackBox, Scalar(200, 0, 255), 3, CV_AA);
             }
         }
         else if (trackObject < 0)

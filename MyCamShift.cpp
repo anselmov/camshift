@@ -244,7 +244,26 @@ mycvCamShift(const void *imgProb, CvRect windowIn,
     return itersUsed;
 }
 
+int i, j;
+int movX[10], movY[10];
 
+int shouldMoveLeft(int windowX, int movX[10]) {
+    int i, moveleft = 1;
+
+    for (i = 0; i < 10; i++) {
+        // regarder les 10 dernières différences
+        int diffLeft = windowX - movX[i];
+        printf("DiffLeft[%d] = %d ", i, diffLeft);
+
+        // si une  ifférence est trop faible, pas de mouvement
+        if (diffLeft < 10) {
+            moveleft = 0;
+            break;
+        }
+    }
+
+    return moveleft;
+}
 cv::RotatedRect cv::MyCamShift(InputArray _probImage, Rect &window,
                                TermCriteria criteria) {
     CvConnectedComp comp;
@@ -258,9 +277,14 @@ cv::RotatedRect cv::MyCamShift(InputArray _probImage, Rect &window,
     Mat probImage = _probImage.getMat();
     CvMat c_probImage = probImage;
     mycvCamShift(&c_probImage, window, (CvTermCriteria) criteria, &comp, &box);
+    movX[i % 10] = window.x;
+    movY[i % 10] = window.y;
     window = comp.rect;
+    i++;
 
-    printf("Window X %d \n", window.x);
-    printf("Window Y %d \n", window.y);
+    int moveleft = shouldMoveLeft(window.x, movX);
+    printf("Window X %d MoveLeft = %d, \n", window.x, moveleft);
     return RotatedRect(Point2f(box.center), Size2f(box.size), box.angle);
 }
+
+

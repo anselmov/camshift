@@ -15,5 +15,11 @@ namespace cv {
                       CvTermCriteria criteria, CvConnectedComp *comp);
 
 
+    namespace ndeke {
+        extern int i, j;
+        extern int movX[10], movY[10];
+        extern int shouldMoveLeft(int windowX, int movX[10]);
+    }
+
 }
 #endif //DISPLAYIMAGE_MYCV_H
