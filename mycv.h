@@ -10,5 +10,10 @@
 namespace cv {
     RotatedRect MyCamShift(InputArray _probImage, Rect &window,
                            TermCriteria criteria);
+
+    int mycvMeanShift(const void *imgProb, CvRect windowIn,
+                      CvTermCriteria criteria, CvConnectedComp *comp);
+
+
 }
 #endif //DISPLAYIMAGE_MYCV_H
